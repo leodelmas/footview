@@ -1,13 +1,13 @@
-const express = require("express");
-
-const PORT = process.env.PORT || 3001;
+import express from 'express';
+import cors from 'cors'
+import { port } from './config';
+import { teamRoutes } from './routers/teamRouter';
 
 const app = express();
 
-app.get("/api", (req, res) => {
-    res.json({ message: "Hello from server!" });
-});
+app.use(express.json());
+app.use(cors());
 
-app.listen(PORT, () => {
-  console.log(`Server listening on ${PORT}`);
-});
+app.use('/api', teamRoutes);
+
+app.listen(port, () => console.log('Server listening on port ' + port));
